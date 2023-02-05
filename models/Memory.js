@@ -16,8 +16,8 @@ const MemorySchema = new mongoose.Schema({
   tags: [{ type: String }],
 
   createdAt: {
-    type: Date,
-    default: new Date(),
+    type: String,
+    default: new Date().toISOString(),
   },
 });
 

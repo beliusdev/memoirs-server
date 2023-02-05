@@ -105,7 +105,7 @@ export const deleteUser = async (req, res, next) => {
     await Memory.deleteMany({ userId: user._id.toString() });
     await user.delete();
 
-    res.status(200);
+    res.status(200).json({});
   } catch (error) {
     next(error);
   }

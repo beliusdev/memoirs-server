@@ -39,7 +39,6 @@ export const searchMemories = async (req, res, next) => {
   try {
     const user = req.user;
     const { searchTerm } = req.query;
-    console.log(searchTerm);
     let memories = searchTerm
       ? await Memory.find({
           $and: [
@@ -47,15 +46,14 @@ export const searchMemories = async (req, res, next) => {
               $or: [
                 { title: { $regex: searchTerm, $options: 'i' } },
                 { body: { $regex: searchTerm, $options: 'i' } },
+                { createdAt: { $regex: searchTerm, $options: 'i' } },
                 { tags: { $in: [searchTerm] } },
               ],
             },
             { userId: user._id.toString() },
           ],
         })
-      : await Memory.find({
-          userId: user._id.toString(),
-        });
+      : [];
 
     res.status(200).json({
       memories,
